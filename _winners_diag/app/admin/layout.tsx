@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
-import BrandLogo from '../../components/BrandLogo'
+import BrandLogo from '@/components/BrandLogo'
 import AdminTopbar from '../../components/AdminTopbar'
 import './admin.css'
 
