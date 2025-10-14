@@ -8,7 +8,7 @@ export async function DELETE(_req: Request, { params }: { params: { id: string }
   if (!id) return NextResponse.json({ ok: false, error: 'Missing id' }, { status: 400 })
 
   try {
-    await prisma.\(async (tx) => {
+    await prisma.$transaction(async (tx) => {
       try { await tx.winner.deleteMany({ where: { raffleId: id } }) } catch {}
       try { await tx.ticket.deleteMany({ where: { raffleId: id } }) } catch {}
       await tx.raffle.delete({ where: { id } })
