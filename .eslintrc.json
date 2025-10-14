@@ -1,12 +1,42 @@
 {
   "root": true,
   "extends": ["next/core-web-vitals", "eslint:recommended"],
-  "parserOptions": { "ecmaVersion": 2023, "sourceType": "module" },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react", "react-hooks"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "globals": {
+    "RequestInit": "readonly",
+    "globalThis": "readonly"
+  },
   "rules": {
-    "@next/next/no-img-element": "off",
+    /* TypeScript se encarga de 'no-undef' mejor que ESLint clásico */
+    "no-undef": "off",
+
+    /* Vacíos solo permitidos en catch */
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+
+    /* Ignora variables intencionalmente sin usar si empiezan con _ */
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+
+    /* React 17+ no requiere React en scope para JSX */
+    "react/react-in-jsx-scope": "off",
+
+    /* Cosas cosméticas -> warning, no bloquean build */
+    "@next/next/no-img-element": "warn",
     "react/no-unescaped-entities": "warn",
-    "react/jsx-no-comment-textnodes": "warn",
+    "no-useless-escape": "warn",
+    "no-irregular-whitespace": "warn",
     "react-hooks/exhaustive-deps": "warn",
-    "jsx-a11y/alt-text": "warn"
+
+    /* Comentarios en JSX como texto -> warning */
+    "react/jsx-no-comment-textnodes": "warn",
+
+    /* Extras menores */
+    "no-extra-semi": "warn"
   }
 }
