@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
-// Si tu helper exporta default:   import prisma from '@/lib/prisma'
-// Si exporta nombrado:            import { prisma } from '@/lib/prisma'
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(_req: Request, { params }: { params: { id: string } }) {
   const id = params?.id;

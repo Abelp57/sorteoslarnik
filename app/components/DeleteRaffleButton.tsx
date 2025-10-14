@@ -19,7 +19,6 @@ export default function DeleteRaffleButton({
       const res = await fetch(`/api/raffles/${id}/delete`, { method: 'POST' });
       if (res.ok) {
         onDeleted?.();
-        // vuelve al listado de rifas del admin
         window.location.href = '/admin/rifas';
       } else {
         const j = await res.json().catch(() => ({ error: 'Delete failed' }));

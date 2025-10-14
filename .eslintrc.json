@@ -1,3 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "extends": ["next/core-web-vitals", "eslint:recommended"],
+  "parserOptions": { "ecmaVersion": 2023, "sourceType": "module" },
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "react/no-unescaped-entities": "warn",
+    "react/jsx-no-comment-textnodes": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/alt-text": "warn"
+  }
 }
