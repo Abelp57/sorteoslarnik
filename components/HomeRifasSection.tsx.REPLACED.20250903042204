@@ -1,0 +1,39 @@
+﻿import Link from "next/link";
+import prisma from "@/lib/prisma";
+import PublicRaffleCard from "@/components/PublicRaffleCard";
+
+export default async function HomeRifasSection() {
+  const [items, total] = await Promise.all([
+    prisma.raffle.findMany({
+      where: { status: "PUBLISHED" },
+      orderBy: { createdAt: "desc" },
+      take: 6,
+      select: {
+        id: true, title: true, shortDescription: true, description: true,
+        mainImage: true, price: true,
+      },
+    }),
+    prisma.raffle.count({ where: { status: "PUBLISHED" } }),
+  ]);
+
+  return (
+    <section id="rifas" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold">Rifas activas</h2>
+        {total > 6 && (
+          <Link href="/rifas" className="text-sm underline">Ver todas</Link>
+        )}
+      </div>
+
+      {items.length === 0 ? (
+        <p className="opacity-80">No hay rifas publicadas todavía.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map((r) => (
+            <PublicRaffleCard key={r.id} raffle={r} />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}

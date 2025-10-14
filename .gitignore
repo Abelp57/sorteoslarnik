@@ -1,0 +1,20 @@
+﻿# dependencias / builds
+node_modules/
+.next/
+.pnpm-store/
+dist/
+.build/
+coverage/
+
+# runtime y backups
+*.log
+*.zip
+res.zip
+_exports/
+
+# env / secretos
+.env*
+!.env.example
+
+# subidas (deja el folder vacío con .gitkeep)
+public/uploads/

@@ -1,0 +1,15 @@
+// AGREGA ESTE ENUM EN TU schema.prisma (fuera de cualquier model)
+enum DrawMethod {
+  LIVE_STREAM
+  LOTERIA_NACIONAL
+  OTRO
+}
+
+// Dentro del model Raffle agrega estos campos NUEVOS:
+drawAt           DateTime?
+drawMethod       DrawMethod?
+drawPlatform     String?
+mainImage        String?
+galleryImages    Json?
+shortDescription String?
+features         Json?

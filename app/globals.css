@@ -1,0 +1,522 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+:root{ --bg:#0b0f1a; --surface:#0f1424; --ink:#e9f0ff; }
+html,body{height:100%}
+body{
+  color:var(--ink);
+  background:
+    radial-gradient(1000px 500px at 85% -10%, rgba(54,77,255,.22), transparent 60%),
+    radial-gradient(900px 450px at 5% 0%, rgba(255,0,128,.14), transparent 60%),
+    linear-gradient(180deg, #0a0f1c 0%, #0f1424 60%, #0f1424 100%);
+  position: relative;
+}
+body::before{
+  content: ""; position: fixed; z-index: -1; top: 10%; right: -8%;
+  width: 360px; height: 360px; opacity: .10;
+  background: url("/brand/logo.png") no-repeat center/contain; pointer-events: none;
+}
+.container{ max-width: 72rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+.section{ padding-top: 3rem; padding-bottom: 3rem; }
+.logo-pill{ display:flex; align-items:center; gap:.5rem; border-radius:1rem; background:#fff; border:1px solid rgba(0,0,0,.1); box-shadow:0 6px 20px rgba(0,0,0,.2); padding:.25rem .5rem; }
+.logo-pill img{ width:28px; height:28px; border-radius:.5rem; object-fit:cover; }
+.logo-pill span{ font-size:.875rem; font-weight:800; }
+.nav-link{ color:rgba(255,255,255,.8); font-size:.875rem; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; border-radius:.75rem; border:1px solid; padding:.5rem .75rem; font-weight:800; }
+.btn-primary{ background:#364dff; color:#fff; border-color:#364dff; }
+.btn-ghost{ background:rgba(255,255,255,.1); color:#fff; border-color:rgba(255,255,255,.2); }
+.btn-dark{ background:#000; color:#fff; border-color:#000; }
+.card{ border-radius:1rem; border:1px solid rgba(255,255,255,.1); background:rgba(18,26,43,.9); box-shadow:0 10px 30px rgba(0,0,0,.35); }
+.badge{ position:absolute; left:.75rem; top:.75rem; font-size:11px; font-weight:900; text-transform:uppercase; color:#fff; padding:.25rem .5rem; border-radius:999px; }
+.badge.success{ background:#059669;} .badge.promo{ background:#db2777;} .badge.warn{ background:#d97706;}
+.footer{ margin-top:4rem; color:#fff; border-top:1px solid rgba(255,255,255,.1); background:rgba(15,20,36,.8); }
+.footer-top{ border-bottom:1px solid rgba(255,255,255,.1); padding:1.25rem 0; }
+.footer-cta{ display:flex; flex-direction:column; gap:1rem; }
+@media(min-width:768px){ .footer-cta{ flex-direction:row; align-items:center; justify-content:space-between; } }
+.footer-grid{ display:grid; gap:1.5rem; padding:1.5rem 0; }
+@media(min-width:768px){ .footer-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+.footer-link{ color:rgba(255,255,255,.8); font-size:.875rem; }
+
+
+/* nav-fix: fuerza visibilidad del tÂ­tulo y enlaces del header */
+header .text-transparent, nav .text-transparent { -webkit-text-fill-color: rgba(255,255,255,.96)!important; color: rgba(255,255,255,.96)!important; background-image: none!important; }
+header .logo-text, header .site-title, header nav a { color: rgba(255,255,255,.96)!important; }
+/* ===== Fondo suave sin Ã¢cortesÃ¢Â ni repeticiÂ³n ===== */
+:root{
+  --bg-base:#0b1220;                /* base oscura */
+  --glow-pink: rgba(236,72,153,.20);/* rose-500 */
+  --glow-blue: rgba(59,130,246,.18);/* blue-500 */
+  --glow-violet: rgba(124,58,237,.14);/* violet-600 */
+}
+
+html, body{
+  min-height:100%;
+  background-color: var(--bg-base);
+}
+
+/* Capa fija detrÂ¡s de todo para evitar Ã¢reiniciosÃ¢Â del gradiente al hacer scroll */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events:none;
+  background:
+    radial-gradient(70% 80% at 5% 0%, var(--glow-pink), transparent 60%),
+    radial-gradient(65% 75% at 100% 0%, var(--glow-blue), transparent 60%),
+    radial-gradient(50% 50% at 60% 20%, var(--glow-violet), transparent 60%),
+    /* Desvanece a sÂ³lido hacia abajo para que nunca se note un Ã¢corteÃ¢Â */
+    linear-gradient(to bottom, transparent 0%, rgba(2,6,23,.35) 35%, rgba(2,6,23,.75) 70%, var(--bg-base) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* clave: no se Ã¢mueveÃ¢Â ni se repite */
+  filter: saturate(1.05) contrast(1.02);
+}
+
+/* Vignette muy sutil abajo por si la pÂ¡gina es larguÂ­sima */
+body::after{
+  content:"";
+  position: fixed;
+  inset:auto 0 0 0;
+  height: 30vh;
+  z-index:-1;
+  pointer-events:none;
+  background: linear-gradient(to bottom, transparent, var(--bg-base));
+}
+/* ==== Fondo global: base sÂ³lida y override de pruebas previas ==== */
+:root { --bg-base:#0b1220; }
+html, body { background-color: var(--bg-base); }
+
+/* Si existÂ­an experimentos con body::before/after, apÂ¡galos para evitar Ã¢cortesÃ¢Â. */
+body::before, body::after { content: none !important; }
+
+/* === Home layout: alinear todos los bloques al ancho del sitio (mÂ¡rgenes del header) === */
+:root{
+  --site-width: 72rem;         /* ~1152px: ajusta si tu header usa otra medida */
+  --site-pad: clamp(16px,3vw,32px);
+}
+main { padding-left: var(--site-pad); padding-right: var(--site-pad); }
+main > * { margin-left: auto; margin-right: auto; max-width: var(--site-width); }
+
+/* === Ocultar hero legacy en Home: ocultamos el primer <section> si NO es el nuevo hero administrable === */
+main > section:first-of-type:not([data-hero="home-hero-admin"]) { display: none; }
+
+/* --- TEMP: ocultar bloques de hero antiguo si existieran --- */
+.legacy-hero, #legacy-hero, .home-hero-old { display:none !important; }
+/* ----------------------------------------------------------- */
+/* === HERO OVERRIDE (no ocultar) === */
+
+ /* === Larnik+Hotfix UI Detalle v5 (scoped) === */
+ :root{
+   --lx-ring: rgba(255,255,255,.10);
+   --lx-glass-a: rgba(30,41,59,.60);
+   --lx-glass-b: rgba(15,23,42,.60);
+ }
+ .lx-actionbar{
+   display:flex; align-items:center; gap:12px;
+   padding:.85rem 1rem;
+   background: linear-gradient(180deg,var(--lx-glass-a),var(--lx-glass-b));
+   border:1px solid var(--lx-ring); border-radius:20px;
+   backdrop-filter: blur(10px) saturate(140%);
+   box-shadow: 0 22px 70px -20px rgba(0,0,0,.6);
+ }
+ .lx-summary{
+   display:flex; align-items:center; gap:.66rem;
+   padding:.66rem .95rem; border-radius:14px; min-height:44px;
+   background: rgba(2,6,23,.92); border:1px solid rgba(255,255,255,.12);
+   color:#e5e7eb; white-space:nowrap; line-height:1.05; font-weight:600;
+ }
+ .lx-nowrap{ white-space:nowrap }
+ .lx-btn{ height:44px; min-width:148px; border-radius:12px;
+   display:inline-flex; align-items:center; justify-content:center;
+   padding:0 16px; font-weight:700; border:1px solid var(--lx-ring);
+ }
+ .lx-btn-ghost{ background:#0f172a; color:#e5e7eb }
+ .lx-btn-ghost:hover{ background:#1e293b }
+ .lx-btn-primary{
+   background-image:linear-gradient(135deg,#7c3aed 0%,#06b6d4 50%,#22d3ee 100%); color:#fff;
+   box-shadow:0 10px 30px -12px rgba(124,58,237,.55);
+ }
+ .lx-btn-wa{ background-image:linear-gradient(135deg,#25D366 0%,#128C7E 100%); color:#fff }
+ .lx-btn:active{ transform:translateY(1px) }
+ .lx-ticket{ transition:transform .15s ease, filter .15s ease, background .15s ease, color .15s ease, border-color .15s ease }
+ .lx-ticket:hover{ transform: translateY(-2px) }
+ .lx-ticket-base{ border-radius:14px; border:1px solid var(--lx-ring); background: rgba(2,6,23,.7); color:#e5e7eb }
+ .lx-ticket-selected{ background:#3b82f6; color:#fff; box-shadow:0 0 0 1px rgba(59,130,246,.5) inset, 0 10px 24px -12px rgba(59,130,246,.55) }
+ .lx-ticket-held{ background:rgba(180,83,9,.16); color:#fde68a; border-color:rgba(245,158,11,.35) }
+ .lx-ticket-sold{ background:rgba(190,18,60,.18); color:#fecdd3; border-color:rgba(244,63,94,.35) }
+ .lx-modal-overlay{ background: radial-gradient(1200px 600px at 50% -10%, rgba(2,6,23,.65), rgba(2,6,23,.85)); backdrop-filter: blur(3px) }
+ .lx-modal-panel{ border-radius:18px; border:1px solid var(--lx-ring); box-shadow: 0 30px 120px rgba(0,0,0,.55) }
+
+ /* === Larnik+Hotfix v5.1 (overrides de especificidad) === */
+ :where(.lx-actionbar){
+   background: linear-gradient(180deg,rgba(30,41,59,.60),rgba(15,23,42,.60)) !important;
+   border:1px solid rgba(255,255,255,.10) !important;
+   border-radius:20px !important;
+   backdrop-filter: blur(10px) saturate(140%) !important;
+   box-shadow: 0 22px 70px -20px rgba(0,0,0,.6) !important;
+ }
+ :where(.lx-actionbar) .lx-summary{
+   background: rgba(2,6,23,.92) !important;
+   border:1px solid rgba(255,255,255,.12) !important;
+   color:#e5e7eb !important;
+ }
+ :where(.lx-actionbar) .lx-btn{
+   height:44px !important; min-width:148px !important; border-radius:12px !important;
+   border:1px solid rgba(255,255,255,.10) !important;
+   display:inline-flex !important; align-items:center !important; justify-content:center !important;
+   padding:0 16px !important; font-weight:700 !important;
+ }
+ :where(.lx-actionbar) .lx-btn-ghost{
+   background:#0f172a !important; color:#e5e7eb !important;
+ }
+ :where(.lx-actionbar) .lx-btn-ghost:hover{ background:#1e293b !important }
+ :where(.lx-actionbar) .lx-btn-primary{
+   background-image:linear-gradient(135deg,#7c3aed 0%,#06b6d4 50%,#22d3ee 100%) !important;
+   color:#fff !important;
+   box-shadow:0 10px 30px -12px rgba(124,58,237,.55) !important;
+ }
+ :where(.lx-actionbar) .lx-btn-wa{
+   background-image:linear-gradient(135deg,#25D366 0%,#128C7E 100%) !important;
+   background-color:#25D366 !important; /* por si hay bg sólido */
+   color:#fff !important;
+ }
+ :where(.lx-actionbar) .lx-btn:active{ transform:translateY(1px) !important }
+
+ /* Tickets (asegurar base y microhover) */
+ :where(.lx-ticket){ transition:transform .15s ease, filter .15s ease, background .15s ease, color .15s ease, border-color .15s ease !important }
+ :where(.lx-ticket):hover{ transform: translateY(-2px) !important }
+ :where(.lx-ticket-base){
+   border-radius:14px !important; border:1px solid rgba(255,255,255,.10) !important;
+   background: rgba(2,6,23,.70) !important; color:#e5e7eb !important;
+ }
+ :where(.lx-ticket-selected){ background:#3b82f6 !important; color:#fff !important }
+ :where(.lx-ticket-held){ background:rgba(180,83,9,.16) !important; color:#fde68a !important }
+ :where(.lx-ticket-sold){ background:rgba(190,18,60,.18) !important; color:#fecdd3 !important }
+
+ /* === Larnik UI — permanente (alto contraste) === */
+
+ /* Panel de “Características” */
+ .lx-specs2{
+   background: linear-gradient(180deg, rgba(8,13,23,.92), rgba(4,7,14,.92));
+   border:1px solid rgba(255,255,255,.14);
+   border-radius:18px;
+   box-shadow: 0 22px 60px -20px rgba(0,0,0,.6);
+   padding:16px;
+ }
+ .lx-specs2 *{ color:#e5e7eb }
+ .lx-spec-pill2{
+   background:#0f172a; color:#e5e7eb;
+   border:1px solid rgba(255,255,255,.18);
+   border-radius:12px;
+ }
+
+ /* Barra inferior */
+ .lx-actionbar3{
+   background: linear-gradient(180deg, rgba(7,11,19,.90), rgba(2,6,12,.90));
+   border:1px solid rgba(255,255,255,.16);
+   border-radius:20px;
+   box-shadow: 0 24px 70px -22px rgba(0,0,0,.65);
+   padding:.9rem 1rem;
+ }
+ .lx-summary2{
+   background: rgba(2,6,23,.96);
+   color:#f8fafc;
+   border:1px solid rgba(255,255,255,.22);
+   border-radius:14px;
+   padding:.66rem .95rem;
+   line-height:1.05; font-weight:600;
+ }
+
+ /* Estados de boletos */
+ .lx-ticket-held{
+   background:rgba(245,158,11,.18);
+   color:#fde68a;
+   border:1px solid rgba(245,158,11,.35);
+ }
+ .lx-ticket-sold{
+   background:rgba(244,63,94,.20);
+   color:#fecdd3;
+   border:1px solid rgba(244,63,94,.35);
+ }
+
+ /* Chips de leyenda */
+ .lx-chip-ok,.lx-chip-held,.lx-chip-sold{
+   display:inline-flex; align-items:center; gap:.4rem;
+   padding:.25rem .5rem; border-radius:9999px; line-height:1;
+   width:auto; max-width:max-content;
+ }
+ .lx-chip-ok  { background:rgba(22,163,74,.18);  color:#86efac; border:1px solid rgba(22,163,74,.35); }
+ .lx-chip-held{ background:rgba(245,158,11,.18); color:#fde68a; border:1px solid rgba(245,158,11,.35); }
+ .lx-chip-sold{ background:rgba(244,63,94,.20); color:#fecdd3; border:1px solid rgba(244,63,94,.35); }
+
+ /* === Larnik UI — permanente (alto contraste) v2 === */
+ .lx-specs2{
+   background: linear-gradient(180deg, rgba(8,13,23,.92), rgba(4,7,14,.92));
+   border:1px solid rgba(255,255,255,.14);
+   border-radius:18px; box-shadow:0 22px 60px -20px rgba(0,0,0,.6); padding:16px;
+ }
+ .lx-specs2 *{ color:#e5e7eb }
+ .lx-spec-pill2{ background:#0f172a; color:#e5e7eb; border:1px solid rgba(255,255,255,.18); border-radius:12px; }
+
+ .lx-actionbar3{
+   background: linear-gradient(180deg, rgba(7,11,19,.90), rgba(2,6,12,.90));
+   border:1px solid rgba(255,255,255,.16); border-radius:20px;
+   box-shadow:0 24px 70px -22px rgba(0,0,0,.65); padding:.9rem 1rem;
+ }
+ .lx-summary2{
+   background:rgba(2,6,23,.96); color:#f8fafc; border:1px solid rgba(255,255,255,.22);
+   border-radius:14px; padding:.66rem .95rem; line-height:1.05; font-weight:600;
+ }
+
+ .lx-ticket-held  { background:rgba(245,158,11,.18); color:#fde68a; border:1px solid rgba(245,158,11,.35) }
+ .lx-ticket-sold  { background:rgba(244,63,94,.20);  color:#fecdd3; border:1px solid rgba(244,63,94,.35) }
+ .lx-chip-ok      { background:rgba(22,163,74,.18);  color:#86efac; border:1px solid rgba(22,163,74,.35) }
+ .lx-chip-held    { background:rgba(245,158,11,.18); color:#fde68a; border:1px solid rgba(245,158,11,.35) }
+ .lx-chip-sold    { background:rgba(244,63,94,.20);  color:#fecdd3; border:1px solid rgba(244,63,94,.35) }
+
+ /* === Larnik UI — permanente (alto contraste) v3 === */
+ [data-lx="specs"]{
+   background: linear-gradient(180deg, rgba(8,13,23,.92), rgba(4,7,14,.92));
+   border:1px solid rgba(255,255,255,.14);
+   border-radius:18px; box-shadow:0 22px 60px -20px rgba(0,0,0,.6); padding:16px;
+ }
+ [data-lx="specs"] *{ color:#e5e7eb }
+ [data-lx="pill"]{
+   background:#0f172a; color:#e5e7eb; border:1px solid rgba(255,255,255,.18); border-radius:12px;
+ }
+
+ [data-lx="bar"]{
+   background: linear-gradient(180deg, rgba(7,11,19,.90), rgba(2,6,12,.90));
+   border:1px solid rgba(255,255,255,.16); border-radius:20px;
+   box-shadow:0 24px 70px -22px rgba(0,0,0,.65); padding:.9rem 1rem;
+ }
+ [data-lx="summary"]{
+   background:rgba(2,6,23,.96); color:#f8fafc; border:1px solid rgba(255,255,255,.22);
+   border-radius:14px; padding:.66rem .95rem; line-height:1.05; font-weight:600;
+ }
+
+ /* Estados (si ya los añadiste en TicketGrid siguen aplicando) */
+ .lx-ticket-held  { background:rgba(245,158,11,.18); color:#fde68a; border:1px solid rgba(245,158,11,.35) }
+ .lx-ticket-sold  { background:rgba(244,63,94,.20);  color:#fecdd3; border:1px solid rgba(244,63,94,.35) }
+
+ /* === Larnik UI — permanente (alto contraste) v3 === */
+ [data-lx="specs"]{
+   background: linear-gradient(180deg, rgba(8,13,23,.92), rgba(4,7,14,.92));
+   border:1px solid rgba(255,255,255,.14);
+   border-radius:18px; box-shadow:0 22px 60px -20px rgba(0,0,0,.6); padding:16px;
+ }
+ [data-lx="specs"] *{ color:#e5e7eb }
+ [data-lx="pill"]{
+   background:#0f172a; color:#e5e7eb; border:1px solid rgba(255,255,255,.18); border-radius:12px;
+ }
+
+ [data-lx="bar"]{
+   background: linear-gradient(180deg, rgba(7,11,19,.90), rgba(2,6,12,.90));
+   border:1px solid rgba(255,255,255,.16); border-radius:20px;
+   box-shadow:0 24px 70px -22px rgba(0,0,0,.65); padding:.9rem 1rem;
+ }
+ [data-lx="summary"]{
+   background:rgba(2,6,23,.96); color:#f8fafc; border:1px solid rgba(255,255,255,.22);
+   border-radius:14px; padding:.66rem .95rem; line-height:1.05; font-weight:600;
+ }
+
+ .lx-ticket-held{ background:rgba(245,158,11,.18); color:#fde68a; border:1px solid rgba(245,158,11,.35) }
+ .lx-ticket-sold{ background:rgba(244,63,94,.20);  color:#fecdd3; border:1px solid rgba(244,63,94,.35) }
+
+/* === Larnik UI Final (panel + barra + botones) === */
+
+/* ---------- PANEL: “Características” ---------- */
+/* Contenedor del section (escapadas las clases con / : []) */
+section.rounded-3xl.border.border-white\/10.bg-white\/60.dark\:bg-white\/\[0\.06\].backdrop-blur-xl.p-6.space-y-4.shadow-sm{
+  background: linear-gradient(180deg, rgba(8,13,23,.90), rgba(4,7,14,.92)) !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 22px 60px -20px rgba(0,0,0,.65) !important;
+  color: #e5e7eb !important;
+}
+section.rounded-3xl.border.border-white\/10.bg-white\/60.dark\:bg-white\/\[0\.06\].backdrop-blur-xl.p-6.space-y-4.shadow-sm h2{
+  color:#e5e7eb !important;
+}
+
+/* Pastillas individuales */
+section.rounded-3xl.border.border-white\/10.bg-white\/60.dark\:bg-white\/\[0\.06\].backdrop-blur-xl.p-6.space-y-4.shadow-sm
+  ul.grid li.group > div.flex.items-start.gap-3.rounded-2xl.px-3.py-3{
+  background: rgba(2,6,23,.92) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:14px !important;
+  color:#e5e7eb !important;
+}
+section.rounded-3xl.border.border-white\/10.bg-white\/60.dark\:bg-white\/\[0\.06\].backdrop-blur-xl.p-6.space-y-4.shadow-sm
+  ul.grid li.group > div .font-medium span{ color:#e5e7eb !important; opacity:.95 !important; }
+
+/* ---------- BARRA FIJA INFERIOR ---------- */
+div.sticky.bottom-4.inset-x-0.flex.justify-center >
+  div.w-full.max-w-3xl.rounded-2xl.border.border-black\/10.dark\:border-white\/10.bg-white\/80.dark\:bg-black\/40.backdrop-blur.p-4.flex.items-center.gap-3.sm\:gap-4.shadow-lg{
+  background: linear-gradient(180deg, rgba(7,11,19,.92), rgba(2,6,12,.92)) !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:20px !important;
+  color:#f8fafc !important;
+}
+div.sticky.bottom-4.inset-x-0.flex.justify-center .text-sm,
+div.sticky.bottom-4.inset-x-0.flex.justify-center .text-base,
+div.sticky.bottom-4.inset-x-0.flex.justify-center strong{
+  color:#f8fafc !important; opacity:1 !important;
+}
+
+/* Botones de la barra (1=Limpiar, 2=Comprar, 3=WhatsApp) */
+div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto button{
+  height:44px !important; border-radius:12px !important;
+  font-weight:700 !important; border:1px solid rgba(255,255,255,.14) !important;
+}
+div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto button:nth-child(1){
+  background:#0f172a !important; color:#e5e7eb !important;
+}
+div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto button:nth-child(1):hover{
+  background:#1e293b !important;
+}
+div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto button:nth-child(2){
+  background-image: linear-gradient(135deg,#7c3aed 0%,#06b6d4 55%,#22d3ee 100%) !important;
+  color:#fff !important; box-shadow:0 10px 30px -12px rgba(124,58,237,.55) !important;
+}
+div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto button:nth-child(2):hover{ filter:brightness(1.06) !important; }
+div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto button:nth-child(3){
+  background-image: linear-gradient(135deg,#25D366 0%,#128C7E 100%) !important;
+  color:#fff !important;
+}
+div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto button:nth-child(3):hover{ filter:brightness(1.06) !important; }
+
+/* Ajuste móvil */
+@media (max-width: 420px){
+  div.sticky.bottom-4.inset-x-0.flex.justify-center .ml-auto{ gap:.5rem !important; }
+}
+
+/* === Larnik UI Tickets (estados + animación) === */
+
+/* Base/hover/active para todos los boletos */
+.lx-ticket{
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease, border-color .15s ease;
+  will-change: transform, box-shadow;
+}
+.lx-ticket:hover{ transform: translateY(-2px); }
+.lx-ticket:active{ transform: scale(.98); }
+
+/* Seleccionado: persistente + efecto pop */
+@keyframes lx-pop { 0%{transform:scale(.96)} 60%{transform:scale(1.02)} 100%{transform:scale(1)} }
+.lx-ticket-selected,
+.lx-ticket[aria-pressed="true"],
+.lx-ticket[data-selected="true"]{
+  background:#2563eb !important; /* azul */
+  color:#fff !important;
+  box-shadow: 0 0 0 1px rgba(37,99,235,.55) inset, 0 10px 24px -12px rgba(37,99,235,.55);
+  animation: lx-pop .22s ease;
+}
+
+/* Apartado (RESERVED) ? amarillo */
+.lx-ticket-held{
+  background: rgba(250, 204, 21, .28) !important;   /* amber-400 ~ */
+  border:1px solid rgba(250, 204, 21, .55) !important;
+  color: #fef9c3 !important;                         /* text: yellow-100 */
+}
+
+/* Vendido (SOLD) ? rojo */
+.lx-ticket-sold{
+  background: rgba(239, 68, 68, .32) !important;     /* red-500 ~ */
+  border:1px solid rgba(239, 68, 68, .62) !important;
+  color: #fee2e2 !important;                         /* text: red-100 */
+}
+
+/* Por si el seleccionado ya trae ring/azul propio de Tailwind */
+button.lx-ticket.ring,
+button.lx-ticket.ring-1,
+button.lx-ticket.ring-2{ box-shadow:none; } /* dejamos el efecto definido arriba */
+
+/* === Larnik UI Tickets (estados + animación selección) === */
+
+/* Base/hover/active para todos los boletos */
+.lx-ticket{
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease, border-color .15s ease;
+  will-change: transform, box-shadow;
+}
+.lx-ticket:hover{ transform: translateY(-2px); }
+.lx-ticket:active{ transform: scale(.98); }
+
+/* Seleccionado: azul + pop + glow */
+@keyframes lx-pop { 0%{transform:scale(.96)} 60%{transform:scale(1.02)} 100%{transform:scale(1)} }
+.lx-ticket-selected,
+.lx-ticket[aria-pressed="true"],
+.lx-ticket[data-selected="true"]{
+  background:#2563eb !important; /* azul */
+  color:#fff !important;
+  box-shadow: 0 0 0 1px rgba(37,99,235,.55) inset, 0 10px 24px -12px rgba(37,99,235,.55);
+  animation: lx-pop .22s ease;
+}
+
+/* Apartado (RESERVED) ? amarillo */
+.lx-ticket-held{
+  background: rgba(250, 204, 21, .28) !important;   /* amber-400 aprox */
+  border:1px solid rgba(250, 204, 21, .55) !important;
+  color: #fef9c3 !important;                         /* texto claro */
+}
+
+/* Vendido (SOLD) ? rojo */
+.lx-ticket-sold{
+  background: rgba(239, 68, 68, .32) !important;     /* red-500 aprox */
+  border:1px solid rgba(239, 68, 68, .62) !important;
+  color: #fee2e2 !important;                         /* texto claro */
+}
+
+/* === Larnik UI Tickets (colores estados + animación selección) === */
+
+/* Animación y base */
+.lx-ticket{
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease, border-color .15s ease;
+  will-change: transform, box-shadow;
+}
+.lx-ticket:hover{ transform: translateY(-2px) }
+.lx-ticket:active{ transform: scale(.98) }
+
+@keyframes lx-pop { 0%{transform:scale(.96)} 60%{transform:scale(1.02)} 100%{transform:scale(1)} }
+
+/* Seleccionado (varios toggles posibles) */
+.lx-ticket-selected,
+[aria-pressed="true"],
+[data-selected="true"],
+[data-state="on"]{
+  background:#2563eb !important;  /* azul */
+  color:#fff !important;
+  box-shadow: 0 0 0 1px rgba(37,99,235,.55) inset, 0 10px 24px -12px rgba(37,99,235,.55);
+  animation: lx-pop .22s ease;
+}
+
+/* Apartado (RESERVED) ? amarillo */
+.lx-ticket-held{
+  background: rgba(250,204,21,.28) !important;     /* amber-400 aprox */
+  border:1px solid rgba(250,204,21,.55) !important;
+  color:#fef9c3 !important;
+}
+
+/* Vendido (SOLD) ? rojo */
+.lx-ticket-sold{
+  background: rgba(239,68,68,.32) !important;      /* red-500 aprox */
+  border:1px solid rgba(239,68,68,.62) !important;
+  color:#fee2e2 !important;
+}
+
+/* Heurística por clases Tailwind ya existentes (no toca TSX):
+   si tu grid usa bg-amber/bg-yellow para apartados y bg-rose/bg-red para vendidos,
+   refuérzalos visualmente sin cambiar lógica */
+.grid button[class*="bg-amber"],
+.grid div[class*="bg-amber"],
+.grid button[class*="bg-yellow"],
+.grid div[class*="bg-yellow"]{
+  background: rgba(250,204,21,.28) !important;
+  border:1px solid rgba(250,204,21,.55) !important;
+  color:#fef9c3 !important;
+}
+
+.grid button[class*="bg-rose"],
+.grid div[class*="bg-rose"],
+.grid button[class*="bg-red"],
+.grid div[class*="bg-red"]{
+  background: rgba(239,68,68,.32) !important;
+  border:1px solid rgba(239,68,68,.62) !important;
+  color:#fee2e2 !important;
+}

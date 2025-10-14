@@ -1,0 +1,7 @@
+{
+  "devDependencies_note": {
+    "fast-glob": "^3.3.2",
+    "minimist": "^1.2.8",
+    "micromatch": "^4.0.5"
+  }
+}
