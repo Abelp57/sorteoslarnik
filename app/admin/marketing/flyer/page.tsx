@@ -37,7 +37,7 @@ export default function FlyerAdminPage() {
     return () => { alive = false; };
   }, []);
 
-  async function uploadFile(f) {
+  async function uploadFile(f: File) {
     const fd = new FormData();
     fd.append("file", f);
     const r = await fetch("/api/upload", { method: "POST", body: fd });
